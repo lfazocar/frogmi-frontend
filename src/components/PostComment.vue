@@ -2,8 +2,8 @@
   <h3>Comment this feature</h3>
   <form id="form" @submit.prevent="onSubmit">
     <div>
-      <label for="text">Comment</label>
-      <input type="text" v-model="comment" placeholder="Your comment here...">
+      <label for="comment">Comment</label>
+      <input type="text" id="comment" v-model="comment" placeholder="Your comment here...">
     </div>
     <button>Create comment</button>
   </form>
@@ -17,13 +17,12 @@ const emit = defineEmits(['createComment']);
 
 const onSubmit = () => {
   if(!comment.value) {
-    console.log('empty form');
     return;
   }
   const newComment = {
     body: comment.value
   }
   comment.value = '';
-  emit('createComment', newComment)
+  emit('createComment', newComment);
 }
 </script>
