@@ -44,7 +44,7 @@ const pagination = ref({});
 
 const refreshFeed = async (fullPath) => {
   try {
-    const apiUrl = 'http://localhost:3000/api' + fullPath;
+    const apiUrl = import.meta.env.VITE_API_URL + fullPath;
     const res = await fetch(apiUrl);
     if(!res.ok) {
       throw new Error('Failed to fetch data');
