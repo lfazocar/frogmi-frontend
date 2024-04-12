@@ -1,19 +1,12 @@
 <template>
-  <div class="about">
-    <h1>Features View</h1>
+  <main>
+    <hgroup>
+      <h1>USGS Earthquake Feed</h1>
+      <p>All Earthquakes from the past 30 days</p>
+    </hgroup>
     <EarthquakeFeed />
-  </div>
+  </main>
 </template>
-
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
-</style>
 
 <script setup>
 import EarthquakeFeed from '@/components/EarthquakeFeed.vue';

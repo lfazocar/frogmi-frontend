@@ -1,30 +1,34 @@
 <template>
   <div>
-    <h1>USGS Earthquake Feed</h1>
-    <h2>All Earthquakes from the past 30 days</h2>
     <ul v-if="features">
-      <li
+      <article
         v-for="feature in features"
         :key="feature.id"
       >
         <div>
           <ul>
-            <li
-              v-for="(attribute, name) in feature.attributes"
-              :key="feature.attributes.external_id">
-              {{ name }}: {{ attribute }}
-            </li>
+            <template
+              v-for="(value, key) in feature.attributes"
+              :key="feature.attributes.external_id"
+            >
+              <li v-if="(typeof value != 'object')">
+                <b>{{ humanizeString(key) }}:</b> {{ value }}
+              </li>
+              <li v-else>
+                <b>{{ humanizeString(key) }}:</b> {{ humanizeString(JSON.stringify(value)) }}
+              </li>
+            </template>
           </ul>
+          <a :href=feature.links.external_url target="_blank">See in the USGS website</a>
         </div>
-        <div>
-          <PostComment @createComment="postNewComment(feature.id, $event)" />
-        </div>
-      </li>
+        <hr />
+        <PostComment @createComment="postNewComment(feature.id, $event)" />
+      </article>
     </ul>
-    <div>
-      <p>Current page: {{ pagination.current_page }}</p>
-      <p>Features per page: {{ pagination.per_page }}</p>
-      <p>Total features in feed: {{ pagination.total }}</p>
+    <div class="grid">
+      <p>Current page: <b>{{ pagination.current_page }}</b></p>
+      <p>Features per page: <b>{{ pagination.per_page }}</b></p>
+      <p>Total features: <b>{{ pagination.total }}</b></p>
     </div>
   </div>
 </template>
@@ -53,6 +57,15 @@ const refreshFeed = async (fullPath) => {
   }
 }
 
+const humanizeString = function (str){
+  return str
+    .replace(/[^\w.,:-]/g, '')
+    .replace(/[,]/g, ', ')
+    .replace(/[:]/g, ': ')
+    .replace(/[_]/g, ' ')
+    .replace(/\b(?=\w)[a-z]/g, (char) => { return char.toUpperCase(); })
+}
+
 refreshFeed(route.fullPath);
 
 onBeforeRouteUpdate(async (to, from) => {
@@ -76,3 +89,9 @@ const postNewComment = async (feature_id, comment) => {
   }
 };
 </script>
+
+<style scoped>
+.grid {
+  text-align: center;
+}
+</style>

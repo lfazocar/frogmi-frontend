@@ -1,11 +1,14 @@
 <template>
-  <h3>Comment this feature</h3>
-  <form id="form" @submit.prevent="onSubmit">
-    <div>
-      <label for="comment">Comment</label>
-      <input type="text" id="comment" v-model="comment" placeholder="Your comment here...">
-    </div>
-    <button>Create comment</button>
+  <form @submit.prevent="onSubmit">
+    <label for="comment">Comment this feature</label>
+    <input
+      type="text"
+      id="comment"
+      v-model="comment"
+      placeholder="Your comment here..."
+      required
+    />
+    <input type="submit" value="Create comment" />
   </form>
 </template>
 

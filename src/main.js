@@ -1,4 +1,4 @@
-import './assets/main.css'
+import './assets/pico.jade.min.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
