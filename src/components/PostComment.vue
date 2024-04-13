@@ -16,18 +16,22 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useToast } from 'vue-toastification';
 
 const comment = ref('');
+const toast = useToast();
 const emit = defineEmits(['createComment']);
 
 const onSubmit = () => {
   if(!comment.value) {
+    toast.error("Can't submit empty comment!");
     return;
   }
   const newComment = {
     body: comment.value
   }
   comment.value = '';
+  toast.success("Comment created!");
   emit('createComment', newComment);
 }
 </script>
