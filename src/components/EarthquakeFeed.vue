@@ -74,7 +74,8 @@ onBeforeRouteUpdate(async (to, from) => {
 
 const postNewComment = async (feature_id, comment) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/features/${feature_id}/comments`, {
+    const apiUrl = import.meta.env.VITE_API_URL + route.path + `/${feature_id}/comments`;
+    const res = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
