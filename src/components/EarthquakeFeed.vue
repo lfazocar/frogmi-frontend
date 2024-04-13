@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul v-if="features">
+    <ul class="feature-list" v-if="features">
       <article
         v-for="feature in features"
         :key="feature.id"
@@ -91,6 +91,10 @@ const postNewComment = async (feature_id, comment) => {
 </script>
 
 <style scoped>
+.feature-list {
+  padding-left: 0;
+}
+
 .grid {
   text-align: center;
 }
