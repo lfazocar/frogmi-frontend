@@ -1,15 +1,17 @@
 <template>
-  <form @submit.prevent="onSubmit">
-    <label for="comment">Comment this feature</label>
-    <input
-      type="text"
-      id="comment"
-      v-model="comment"
-      placeholder="Your comment here..."
-      required
-    />
-    <input type="submit" value="Create comment" />
-  </form>
+  <details>
+    <summary>Leave a comment</summary>
+    <form @submit.prevent="onSubmit">
+      <input
+        type="text"
+        id="comment"
+        v-model="comment"
+        placeholder="Your comment here..."
+        required
+      />
+      <input type="submit" value="Create comment" />
+    </form>
+  </details>
 </template>
 
 <script setup>
