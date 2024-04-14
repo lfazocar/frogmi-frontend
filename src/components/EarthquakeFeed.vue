@@ -22,7 +22,7 @@
           <a :href=feature.links.external_url target="_blank">See in the USGS website</a>
         </div>
         <hr />
-        <PostComment @createComment="postNewComment(feature.id, $event)" />
+        <FeatureComments :feature_id="feature.id" />
       </article>
     </ul>
     <div class="grid">
@@ -36,13 +36,13 @@
 <script setup>
 import { ref } from 'vue';
 import { useRoute, onBeforeRouteUpdate } from 'vue-router';
-import PostComment from './PostComment.vue';
+import FeatureComments from './FeatureComments.vue';
 
 const route = useRoute();
 const features = ref({});
 const pagination = ref({});
 
-const refreshFeed = async (fullPath) => {
+const getFeatures = async (fullPath) => {
   try {
     const apiUrl = import.meta.env.VITE_API_URL + fullPath;
     const res = await fetch(apiUrl);
@@ -66,29 +66,11 @@ const humanizeString = function (str){
     .replace(/\b(?=\w)[a-z]/g, (char) => { return char.toUpperCase(); })
 }
 
-refreshFeed(route.fullPath);
+getFeatures(route.fullPath);
 
 onBeforeRouteUpdate(async (to, from) => {
-  refreshFeed(to.fullPath)
+  getFeatures(to.fullPath)
 });
-
-const postNewComment = async (feature_id, comment) => {
-  try {
-    const apiUrl = import.meta.env.VITE_API_URL + route.path + `/${feature_id}/comments`;
-    const res = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(comment)
-    });
-    if(!res.ok) {
-      throw new Error('Failed to post comment');
-    }
-  } catch (err) {
-    console.error('Error creating comment:', err);
-  }
-};
 </script>
 
 <style scoped>
