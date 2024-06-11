@@ -1,6 +1,4 @@
-# Frontend Desafío Técnico Frogmi
-
-## GeoJSON API Frontend
+# GeoJSON API Frontend
 
 This application retrieves earthquake data from the USGS feed and displays it in a user friendly manner
 
